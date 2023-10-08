@@ -1,0 +1,7 @@
+{
+    "uuid": "zoegraph@ext.mislah.com",
+    "name": "Zoegraph",
+    "description": "An overlay Chronograph",
+    "shell-version": [ "44" ],
+    "url": "https://ext.mislah.com"
+}
