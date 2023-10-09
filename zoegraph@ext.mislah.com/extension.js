@@ -18,7 +18,7 @@ class Extension {
         Main.uiGroup.add_actor(this.#disp);
 
         // this.#clock();
-        this.#zoegraph("2000-01-01");
+        this.#zoegraph("2000-01-01", 0, 1, 72.3);
     }
 
     #clock() {
@@ -29,12 +29,22 @@ class Extension {
         });
     }
 
-    #zoegraph(startDateWithTime) {
-        const startTime = new Date(startDateWithTime).getTime();
-        this.#timeout = Mainloop.timeout_add(1, () => {
-            let currentTime = new Date().getTime();
-            let elapsedTime = ((currentTime - startTime) / 1000) / (365.25 * 24 * 60 * 60);
-            this.#disp.text = elapsedTime.toString();
+    /*
+    * No second e'er returns once it hath fled
+    * None a timepiece reveals the same hour once sped 
+    */
+    #zoegraph(startDateWithTime, precision = 0, refreshInt = 1, expectedYears = 0) {
+        const milliSecondsInAYear = 365.25 * 24 * 60 * 60 * 1000;
+        let startTime = new Date(startDateWithTime).getTime();
+        startTime += expectedYears * milliSecondsInAYear;
+        this.#timeout = Mainloop.timeout_add(refreshInt, () => {
+            let timeDelta = Math.abs(new Date().getTime() - startTime);
+            let timeInYears = timeDelta / milliSecondsInAYear;
+            timeInYears = timeInYears.toString().split('.');
+            if (precision) {
+                timeInYears[1] = timeInYears[1].slice(0, -precision)
+            }
+            this.#disp.text = timeInYears.join('.');
             return true;
         });
     }
