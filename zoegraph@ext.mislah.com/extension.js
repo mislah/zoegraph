@@ -14,6 +14,21 @@ const offset = {
 
 let Indicator = GObject.registerClass(
     class Indicator extends PanelMenu.Button {
+        static menuItems = [
+            {
+                label: _('Clock'),
+                action: "clock"
+            },
+            {
+                label: _('Zoegraph'),
+                action: "zoegraph"
+            },
+            {
+                label: _('Zoegraph Countdown'),
+                action: "zoegraph countdown"
+            }
+        ];
+
         _init() {
             super._init(0.0, `${Me.metadata.name} Indicator`, false);
 
@@ -23,23 +38,13 @@ let Indicator = GObject.registerClass(
             });
             this.actor.add_child(icon);
 
-            let item1 = new PopupMenu.PopupMenuItem(_('Clock'));
-            let item2 = new PopupMenu.PopupMenuItem(_('Zoegraph'));
-            let item3 = new PopupMenu.PopupMenuItem(_('Zoegraph Countdown'));
-            
-            item1.connect('activate', () => {
-                this.extension.set("clock");
+            Indicator.menuItems.forEach(item => {
+                const menuItem = new PopupMenu.PopupMenuItem(item.label);
+                menuItem.connect('activate', () => {
+                    this.extension.set(item.action)
+                });
+                this.menu.addMenuItem(menuItem);
             });
-            item2.connect('activate', () => {
-                this.extension.set("zoegraph");
-            });
-            item3.connect('activate', () => {
-                this.extension.set("zoegraph countdown");
-            });
-
-            this.menu.addMenuItem(item1);
-            this.menu.addMenuItem(item2);
-            this.menu.addMenuItem(item3);
         }
     }
 );
