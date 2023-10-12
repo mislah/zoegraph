@@ -7,8 +7,10 @@ const PopupMenu = imports.ui.popupMenu;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 
-const offset = { x: -50, y: -33 }
-// const offset = { x: -200, y: -33 }
+const offset = { 
+    clock: { x: -50, y: -33},
+    zoegraph: { x: -200, y: -33}, 
+}
 
 let Indicator = GObject.registerClass(
     class Indicator extends PanelMenu.Button {
@@ -46,6 +48,7 @@ class Extension {
     #indicator;
     #disp;
     #timeout;
+    #offset;
 
     enable() {
         this.#indicator = new Indicator();
@@ -53,29 +56,37 @@ class Extension {
 
         Main.panel.addToStatusArea(`${Me.metadata.name} Indicator`, this.#indicator);
 
-        this.#disp = new St.Label({ style_class: 'main', text: "00:00:00" });
-        this.#disp.set_position(
-            Main.layoutManager.primaryMonitor.width - this.#disp.width + offset.x,
-            Main.layoutManager.primaryMonitor.height - this.#disp.height + offset.y,
-        );
-        Main.uiGroup.add_actor(this.#disp);
-
         this.set("clock");
     }
-
+    
     set(opt) {
         if (this.#timeout) {
             Mainloop.source_remove(this.#timeout);
         }
+        if (this.#disp) {
+            Main.uiGroup.remove_actor(this.#disp);
+        }
+        this.#disp = new St.Label({ style_class: 'main', text: "00:00:00" });
         if(opt === "clock") {
             this.#clock();
+            this.#offset = offset.clock;
         }
         else if(opt === "zoegraph") {
             this.#zoegraph("2000-01-01");
+            this.#offset = offset.zoegraph;
         }
         else if(opt === "zoegraph countdown") {
             this.#zoegraph("2000-01-01", 0, 1, 72.3);
+            this.#offset = offset.zoegraph;
         }
+        else {
+            return;
+        }
+        this.#disp.set_position(
+            Main.layoutManager.primaryMonitor.width - this.#disp.width + this.#offset.x,
+            Main.layoutManager.primaryMonitor.height - this.#disp.height + this.#offset.y,
+        );
+        Main.uiGroup.add_actor(this.#disp);
     }
 
     #clock() {
