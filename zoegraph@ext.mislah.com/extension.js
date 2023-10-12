@@ -90,9 +90,13 @@ class Extension {
     }
 
     #clock() {
-        this.#timeout = Mainloop.timeout_add_seconds(1, () => {
+        let update = () => {
             let date = new Date();
             this.#disp.text = date.toLocaleFormat("%I:%M:%S");
+        };
+        update();
+        this.#timeout = Mainloop.timeout_add_seconds(1, () => {
+            update();
             return true;
         });
     }
