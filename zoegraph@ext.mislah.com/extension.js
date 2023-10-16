@@ -12,6 +12,11 @@ const offset = {
     zoegraph: { x: -200, y: -33}, 
 }
 
+/*
+* No second e'er returns once it hath fled
+* None a timepiece reveals the same hour once sped 
+*/
+
 let Indicator = GObject.registerClass(
     class Indicator extends PanelMenu.Button {
         static menuItems = [
@@ -77,11 +82,16 @@ class Extension {
             this.#offset = offset.clock;
         }
         else if(opt === "zoegraph") {
-            this.#zoegraph("2000-01-01");
+            this.#zoegraph({
+                anchorDate: "2000-01-01"
+            });
             this.#offset = offset.zoegraph;
         }
         else if(opt === "zoegraph countdown") {
-            this.#zoegraph("2000-01-01", 0, 1, 72.3);
+            this.#zoegraph({
+                anchorDate: "2000-01-01",
+                expectedSpan: 72.3
+            });
             this.#offset = offset.zoegraph;
         }
         else {
@@ -105,17 +115,13 @@ class Extension {
             return true;
         });
     }
-
-    /*
-    * No second e'er returns once it hath fled
-    * None a timepiece reveals the same hour once sped 
-    */
-    #zoegraph(startDateWithTime, precision = 0, refreshInt = 1, expectedYears = 0) {
+    
+    #zoegraph({anchorDate, precision = 0, refreshInterval = 1, expectedSpan = 0}) {
         const milliSecondsInAYear = 365.25 * 24 * 60 * 60 * 1000;
-        let startTime = new Date(startDateWithTime).getTime();
-        startTime += expectedYears * milliSecondsInAYear;
-        this.#timeout = Mainloop.timeout_add(refreshInt, () => {
-            let timeDelta = Math.abs(new Date().getTime() - startTime);
+        let anchorTime = new Date(anchorDate).getTime();
+        anchorTime += expectedSpan * milliSecondsInAYear;
+        this.#timeout = Mainloop.timeout_add(refreshInterval, () => {
+            let timeDelta = Math.abs(new Date().getTime() - anchorTime);
             let timeInYears = timeDelta / milliSecondsInAYear;
             timeInYears = timeInYears.toString().split('.');
             if (precision) {
