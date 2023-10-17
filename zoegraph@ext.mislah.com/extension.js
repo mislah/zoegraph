@@ -1,16 +1,12 @@
 const Main = imports.ui.main;
 const Mainloop = imports.mainloop;
 
-const { GObject, St } = imports.gi;
+const { Gio, GObject, St } = imports.gi;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-
-const offset = { 
-    clock: { x: -50, y: -33},
-    zoegraph: { x: -200, y: -33}, 
-}
+const ExtensionUtils = imports.misc.extensionUtils;
+const Me = ExtensionUtils.getCurrentExtension();
 
 /*
 * No second e'er returns once it hath fled
@@ -63,10 +59,11 @@ class Extension {
     enable() {
         this.#indicator = new Indicator();
         this.#indicator.extension = this;
+        this.settings = ExtensionUtils.getSettings();
 
         Main.panel.addToStatusArea(`${Me.metadata.name} Indicator`, this.#indicator);
 
-        this.set("clock");
+        this.set(this.settings.get_string("mode"));
     }
     
     set(opt) {
@@ -79,20 +76,31 @@ class Extension {
         this.#disp = new St.Label({ style_class: 'main', text: "00:00:00" });
         if(opt === "clock") {
             this.#clock();
-            this.#offset = offset.clock;
+            this.#offset = {
+                x: this.settings.get_int("offset-clock-x"),
+                y: this.settings.get_int("offset-clock-y")
+            };
         }
         else if(opt === "zoegraph") {
             this.#zoegraph({
-                anchorDate: "2000-01-01"
+                anchorDate: this.settings.get_string("zoegraph-anchor-date")
             });
-            this.#offset = offset.zoegraph;
+            this.#offset = {
+                x: this.settings.get_int("offset-zoegraph-x"),
+                y: this.settings.get_int("offset-zoegraph-y")
+            };
         }
         else if(opt === "zoegraph countdown") {
             this.#zoegraph({
-                anchorDate: "2000-01-01",
-                expectedSpan: 72.3
-            });
-            this.#offset = offset.zoegraph;
+                anchorDate: this.settings.get_string("zoegraph-anchor-date"),
+                precision: this.settings.get_int("zoegraph-precision"),
+                refreshInterval: this.settings.get_int("zoegraph-refresh-interval"),
+                expectedSpan: this.settings.get_double("zoegraph-anchor-span")
+             });
+            this.#offset = {
+                x: this.settings.get_int("offset-zoegraph-x"),
+                y: this.settings.get_int("offset-zoegraph-y")
+            };
         }
         else {
             return;

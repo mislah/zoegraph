@@ -3,5 +3,6 @@
     "name": "Zoegraph",
     "description": "An overlay Chronograph",
     "shell-version": [ "44" ],
-    "url": "https://ext.mislah.com"
+    "url": "https://ext.mislah.com",
+    "settings-schema": "org.gnome.shell.extensions.zoegraph"
 }

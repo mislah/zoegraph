@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<schemalist gettext-domain="gnome-shell-extensions">
+    <schema path="/org/gnome/shell/extensions/zoegraph/" id="org.gnome.shell.extensions.zoegraph">
+        <key name="mode" type="s">
+            <default>"clock"</default>
+        </key>
+        <key name="zoegraph-anchor-date" type="s">
+            <default>"2000-01-01"</default>
+        </key>
+        <key name="zoegraph-anchor-span" type="d">
+            <default>72.3</default>
+        </key>
+        <key name="zoegraph-precision" type="i">
+            <default>0</default>
+        </key>
+        <key name="zoegraph-refresh-interval" type="i">
+            <default>1</default>
+        </key>
+        <key name="offset-clock-x" type="i">
+            <default>-50</default>
+        </key>
+        <key name="offset-clock-y" type="i">
+            <default>-33</default>
+        </key>
+        <key name="offset-zoegraph-x" type="i">
+            <default>-200</default>
+        </key>
+        <key name="offset-zoegraph-y" type="i">
+            <default>-33</default>
+        </key>
+    </schema>
+</schemalist>
