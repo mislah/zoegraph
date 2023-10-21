@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <schemalist gettext-domain="gnome-shell-extensions">
+    <enum id='org.gnome.shell.extensions.zoegraph.mode'>
+        <value value='0' nick='clock'/>
+        <value value='1' nick='zoegraph'/>
+        <value value='2' nick='zoegraph countdown'/>
+    </enum>
     <schema path="/org/gnome/shell/extensions/zoegraph/" id="org.gnome.shell.extensions.zoegraph">
-        <key name="mode" type="s">
+        <key name="mode" enum="org.gnome.shell.extensions.zoegraph.mode">
             <default>"clock"</default>
         </key>
         <key name="zoegraph-anchor-date" type="s">
             <default>"2000-01-01"</default>
+        </key>
+        <key name="clock-24h" type="b">
+            <default>false</default>
         </key>
         <key name="zoegraph-anchor-span" type="d">
             <default>72.3</default>
