@@ -63,9 +63,48 @@ class Extension {
 
         Main.panel.addToStatusArea(`${Me.metadata.name} Indicator`, this.#indicator);
 
+        this._connect_set();
+
         this.set(this.settings.get_string("mode"));
     }
     
+    _connect_set(){
+        this.settings.connect(
+            'changed::mode',
+            () => {
+                this._handle_change();
+            }
+        )
+        this.settings.connect(
+            'changed::offset-clock-x',
+            () => {
+                this._handle_change();
+            }
+        )
+        this.settings.connect(
+            'changed::offset-clock-y',
+            () => {
+                this._handle_change();
+            }
+        )
+        this.settings.connect(
+            'changed::offset-zoegraph-x',
+            () => {
+                this._handle_change();
+            }
+        )
+        this.settings.connect(
+            'changed::offset-zoegraph-y',
+            () => {
+                this._handle_change();
+            }
+        )
+    }
+
+    _handle_change(){
+        this.set(this.settings.get_string("mode"));
+    }
+
     set(opt) {
         if (this.#timeout) {
             Mainloop.source_remove(this.#timeout);
