@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="zoegraph">
+    <template class="PrefsWidgets" parent="GtkBox">
+        <property name="width_request">400</property>
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="margin-start">20</property>
+        <property name="margin-end">20</property>
+        <property name="margin-top">20</property>
+        <property name="margin-bottom">0</property>
+        <property name="hexpand">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">15</property>
+        <child>
+            <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="spacing">50</property>
+                <child>
+                    <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">Zoegraph mode</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkComboBoxText" id="default_mode">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="valign">center</property>
+                        <items>
+                            <item translatable="yes">Clock</item>
+                            <item translatable="yes">Zoegraph</item>
+                            <item translatable="yes">Zoegraph Countdown</item>
+                        </items>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
+            <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="spacing">50</property>
+                <child>
+                    <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">Clock offset: x</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkAdjustment" id="adjustment_c_off_x">
+                        <property name="lower">-2000</property>
+                        <property name="upper">2000</property>
+                        <property name="value">-50</property>
+                        <property name="step-increment">1</property>
+                    </object>
+                    <object class="GtkSpinButton" id="c_off_x">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="valign">center</property>
+                        <property name="adjustment">adjustment_c_off_x</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
+            <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="spacing">50</property>
+                <child>
+                    <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">Clock offset: y</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkAdjustment" id="adjustment_c_off_y">
+                        <property name="lower">-2000</property>
+                        <property name="upper">2000</property>
+                        <property name="value">-33</property>
+                        <property name="step-increment">1</property>
+                    </object>
+                    <object class="GtkSpinButton" id="c_off_y">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="valign">center</property>
+                        <property name="adjustment">adjustment_c_off_y</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
+            <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="spacing">50</property>
+                <child>
+                    <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">Zoegraph offset: x</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkAdjustment" id="adjustment_z_off_x">
+                        <property name="lower">-2000</property>
+                        <property name="upper">2000</property>
+                        <property name="value">-200</property>
+                        <property name="step-increment">1</property>
+                    </object>
+                    <object class="GtkSpinButton" id="z_off_x">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="valign">center</property>
+                        <property name="adjustment">adjustment_z_off_x</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
+            <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="spacing">50</property>
+                <child>
+                    <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">Zoegraph offset: y</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkAdjustment" id="adjustment_z_off_y">
+                        <property name="lower">-2000</property>
+                        <property name="upper">2000</property>
+                        <property name="value">-33</property>
+                        <property name="step-increment">1</property>
+                    </object>
+                    <object class="GtkSpinButton" id="z_off_y">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="valign">center</property>
+                        <property name="adjustment">adjustment_z_off_y</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
+            <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="spacing">50</property>
+                <child>
+                    <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">24h format</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkSwitch" id="clock_24h">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="valign">center</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
+            <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="spacing">50</property>
+                <child>
+                    <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="hexpand">True</property>
+                        <property name="label" translatable="yes">Zoegraph epoch date</property>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkEntry" id="zoegraph_date">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="valign">center</property>
+                        <property name="tooltip_text" translatable="yes">Date in the format: YYYY-MM-DD</property>
+                        <property name="truncate_multiline">1</property>
+                        <property name="placeholder_text" translatable="yes">2000-01-01</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+    </template>
+</interface>
