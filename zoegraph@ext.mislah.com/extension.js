@@ -166,9 +166,10 @@ class Extension {
     #zoegraph({anchorDate, precision = 0, refreshInterval = 1, expectedSpan = 0}) {
         const milliSecondsInAYear = 365.25 * 24 * 60 * 60 * 1000;
         let anchorTime = new Date(anchorDate).getTime();
+        let offset = new Date().getTimezoneOffset() * 60 * 1000;
         anchorTime += expectedSpan * milliSecondsInAYear;
         this.#timeout = Mainloop.timeout_add(refreshInterval, () => {
-            let timeDelta = Math.abs(new Date().getTime() - anchorTime);
+            let timeDelta = Math.abs(new Date().getTime() - anchorTime) - offset;
             let timeInYears = timeDelta / milliSecondsInAYear;
             timeInYears = timeInYears.toString().split('.');
             if (precision) {
