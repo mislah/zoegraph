@@ -99,6 +99,12 @@ class Extension {
                 this._handle_change();
             }
         )
+        this.settings.connect(
+            'changed::clock-24h',
+            () => {
+                this._handle_change();
+            }
+        )
     }
 
     _handle_change(){
@@ -152,9 +158,10 @@ class Extension {
     }
 
     #clock() {
+        let is24h = this.settings.get_boolean('clock-24h');
         let update = () => {
             let date = new Date();
-            this.#disp.text = date.toLocaleFormat("%I:%M:%S");
+            this.#disp.text = date.toLocaleFormat(is24h ? "%H:%M:%S" : "%I:%M:%S");
         };
         update();
         this.#timeout = Mainloop.timeout_add_seconds(1, () => {

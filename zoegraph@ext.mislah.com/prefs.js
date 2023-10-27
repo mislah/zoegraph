@@ -25,7 +25,7 @@ const PrefsWidget = GObject.registerClass({
         this._bind('offset-clock-y', 'c_off_y', 'value');
         this._bind('offset-zoegraph-x', 'z_off_x', 'value');
         this._bind('offset-zoegraph-y', 'z_off_y', 'value');
-        this._bind('clock-24h', 'clock_24h', 'true');
+        this._bind('clock-24h', 'clock_24h', 'active');
         
         const defaultMode = this._widget('default_mode');
         defaultMode.set_active(this._settings.get_enum('mode'));
